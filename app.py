@@ -57,16 +57,13 @@ def quest_active_cold(call):
         markup = get_qst_and_keyboard(yes_no_list, f'heat_active')
         bot.send_message(call.from_user.id, quest_active, reply_markup=markup)
 
-
     elif call.data == f'{yes_no_list[0]}_heat_active':
         markup = get_qst_and_keyboard(yes_no_list, 'quest_trip_history')
         bot.send_message(call.from_user.id, quest_trip_history, reply_markup=markup)
 
-
     elif call.data == f'{yes_no_list[0]}_quest_trip_history':
         markup = get_qst_and_keyboard(in_tur_list, 'quest_private_tour')
         bot.send_message(call.from_user.id, quest_private_tour, reply_markup=markup)
-
 
     elif call.data == f'{in_tur_list[0]}_quest_private_tour':
         LST_USER[call.from_user.id].lst_country += individ_list
@@ -75,7 +72,6 @@ def quest_active_cold(call):
     elif call.data == f'{in_tur_list[1]}_quest_private_tour':
         LST_USER[call.from_user.id].lst_country += tur_list
         do_choice(call)
-
 
     elif call.data == f'{yes_no_list[1]}_quest_trip_history':
         markup = get_qst_and_keyboard(yes_no_list, 'quest_trip_exotic')
@@ -92,7 +88,6 @@ def quest_active_cold(call):
     elif call.data == f'{yes_no_list[1]}_quest_has_vaxine':
         LST_USER[call.from_user.id].lst_country += not_vac_list
         do_choice(call)
-
 
     elif call.data == f'{yes_no_list[1]}_quest_trip_exotic':
         markup = get_qst_and_keyboard(sea_mountains_list, 'quest_sea_climb')
@@ -139,8 +134,6 @@ def quest_active_cold(call):
         LST_USER[call.from_user.id].lst_country += without_children_list
         do_choice(call)
 
-
-
     elif call.data == f'{yes_no_list[1]}_quest_has_visa':
         LST_USER[call.from_user.id].lst_country += not_visa_list
         do_choice(call)
@@ -148,7 +141,6 @@ def quest_active_cold(call):
     elif call.data == f'{yes_no_list[1]}_heat_active':
         LST_USER[call.from_user.id].lst_country += passive_relax
         do_choice(call)
-
 
     elif call.data == f'was_{yes_no_list[1]}':
         bot.send_message(call.from_user.id, 'Отлично, я думаю, что это идеальный вариант для вас.')
