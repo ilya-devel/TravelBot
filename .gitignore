@@ -1,2 +1,5 @@
 /venv/
 /.idea/
+
+/.tgmBot.key
+/Travel_Bot.py
