@@ -29,7 +29,6 @@ def start_quiz(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def quest_active_cold(call):
-    print(call.data)
     if call.data == f'{cold_heat_list[0]}_quest_cold_heat':
         markup = get_qst_and_keyboard(yes_no_list, f'cold_active')
         bot.send_message(call.from_user.id, quest_active, reply_markup=markup)
@@ -152,9 +151,16 @@ def quest_active_cold(call):
 
 def get_qst_and_keyboard(type_ans, key_qst):
     keys = InlineKeyboardMarkup()
-    for key in type_ans:
-        keys.add(InlineKeyboardButton(key, callback_data=f'{key}_{key_qst}'))
-    return keys
+    if len(type_ans) < 3:
+        for key in type_ans:
+            keys.add(InlineKeyboardButton(key, callback_data=f'{key}_{key_qst}'))
+        return keys
+    else:
+        for key_row in [type_ans[i * 5:i * 5 + 5] for i in range(len(type_ans) % 5)]:
+            print(key_row)
+            btns = [InlineKeyboardButton(key, callback_data=f'{key}_{key_qst}') for key in key_row]
+            keys.row(*btns)
+        return keys
 
 
 def do_choice(call):
@@ -162,7 +168,7 @@ def do_choice(call):
         country = choice(LST_USER[call.from_user.id].lst_country)
         LST_USER[call.from_user.id].lst_country.remove(country)
         msg = f'Что насчет {country}. Был ли ты там?'
-        keys = InlineKeyboardMarkup()
+        keys = InlineKeyboardMarkup(row_width=2)
         for key in yes_no_list:
             keys.add(InlineKeyboardButton(key, callback_data=f'was_{key}'))
         bot.send_message(call.from_user.id, msg, reply_markup=keys)
